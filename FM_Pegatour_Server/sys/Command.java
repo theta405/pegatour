@@ -1,8 +1,10 @@
 package FM_Pegatour_Server.sys;
 
+import org.json.JSONObject;
+
 public abstract class Command { // 指令抽象类
     public abstract String identifier(); // 指令标识符，用于对端通讯
-    public abstract void exec(); // 执行
+    public abstract void exec(JSONObject data, JSONObject response); // 执行
 }
 
 class Hello extends Command {
@@ -10,7 +12,23 @@ class Hello extends Command {
         return "hello";
     }
 
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
+        if (data.getString("hello").equals("client hello")) {
+            response.put("status", 0);
+            response.put("message", "server hello");
+        } else {
+            response.put("status", 1);
+            response.put("message", "服务器拒绝连接");
+        }
+    }
+}
+
+class Time extends Command {
+    public String identifier() {
+        return "time";
+    }
+
+    public void exec(JSONObject data, JSONObject response) {
         
     }
 }
@@ -20,7 +38,7 @@ class Register extends Command {
         return "register";
     }
 
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
         
     }
 }
@@ -30,7 +48,17 @@ class Deactivate extends Command {
         return "deactivate";
     }
 
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
+
+    }
+}
+
+class QueryMembers extends Command {
+    public String identifier() {
+        return "query_members";
+    }
+
+    public void exec(JSONObject data, JSONObject response) {
 
     }
 }
@@ -40,7 +68,7 @@ class Modify extends Command {
         return "modify";
     }
 
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
 
     }
 }
@@ -50,27 +78,17 @@ class AddRoute extends Command {
         return "add_route";
     }
 
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
 
     }
 }
 
-class ModifyRoute extends Command {
+class QueryRoutes extends Command {
     public String identifier() {
-        return "modify_route";
+        return "query_routes";
     }
 
-    public void exec() {
-
-    }
-}
-
-class QueryRoute extends Command {
-    public String identifier() {
-        return "query_route";
-    }
-
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
 
     }
 }
@@ -80,17 +98,7 @@ class BookRoute extends Command {
         return "book_route";
     }
 
-    public void exec() {
-
-    }
-}
-
-class CancelRoute extends Command {
-    public String identifier() {
-        return "cancel_route";
-    }
-
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
 
     }
 }
@@ -100,27 +108,47 @@ class CommentRoute extends Command {
         return "comment_route";
     }
 
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
 
     }
 }
 
-class BatchImport extends Command {
+class ImportMembers extends Command {
     public String identifier() {
-        return "batch_import";
+        return "import_members";
     }
 
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
 
     }
 }
 
-class ExportQuery extends Command {
+class ImportRoutes extends Command {
     public String identifier() {
-        return "export_query";
+        return "import_routes";
     }
 
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
+
+    }
+}
+
+class ExportMembers extends Command {
+    public String identifier() {
+        return "export_members";
+    }
+
+    public void exec(JSONObject data, JSONObject response) {
+
+    }
+}
+
+class ExportRoutes extends Command {
+    public String identifier() {
+        return "export_routes";
+    }
+
+    public void exec(JSONObject data, JSONObject response) {
 
     }
 }
@@ -130,7 +158,7 @@ class ExportSummary extends Command {
         return "export_summary";
     }
 
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
 
     }
 }
@@ -140,7 +168,7 @@ class AdvanceDays extends Command {
         return "advance_days";
     }
 
-    public void exec() {
+    public void exec(JSONObject data, JSONObject response) {
 
     }
 }

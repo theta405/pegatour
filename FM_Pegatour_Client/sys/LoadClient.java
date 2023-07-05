@@ -5,10 +5,6 @@ import java.util.Iterator;
 
 public class LoadClient {
     
-    // 静态变量
-    public static final String SERVER = "localhost";
-    public static final String SERVER_PORT = "33600";
-
     // 静态方法
     private static void generateDefaultSettings() {
 
@@ -21,19 +17,18 @@ public class LoadClient {
 
         commandsList.addCommand(new Register()) // 添加指令
             .addCommand(new Deactivate())
+            .addCommand(new QueryMembers())
             .addCommand(new Modify())
             .addCommand(new AddRoute())
-            .addCommand(new ModifyRoute())
-            .addCommand(new QueryRoute())
+            .addCommand(new QueryRoutes())
             .addCommand(new BookRoute())
-            .addCommand(new CancelRoute())
             .addCommand(new CommentRoute())
-            .addCommand(new BatchImport())
-            .addCommand(new ExportQuery())
+            .addCommand(new ImportMembers())
+            .addCommand(new ImportRoutes())
+            .addCommand(new ExportMembers())
+            .addCommand(new ExportRoutes())
             .addCommand(new ExportSummary())
             .addCommand(new AdvanceDays())
-            .addCommand(new ChangeSettings())
-            .addCommand(new ResetSettings())
             .addCommand(new Exit());
 
         while (true) { // 程序主循环
@@ -44,29 +39,9 @@ public class LoadClient {
         }
     }
 
-    // static { // 静态代码块，类加载时运行
-    //     if (! IO.saveExists(IO.DEFAULT)) {
-    //         IO.println("尝试生成默认配置");
-    //         generateDefaultSettings();
-    //         if (IO.save(IO.DEFAULT)) {
-    //             IO.println("默认配置已生成");
-    //         } else {
-    //             IO.println("默认配置生成失败");
-    //             System.exit(1);
-    //         }
-    //     }
-    //     if (IO.saveExists(IO.USER)) { // 若配置文件存在则读取
-    //         if (IO.read(IO.USER)) {
-    //             IO.println("已读取用户配置文件");
-    //         } else {
-    //             IO.read(IO.DEFAULT);
-    //             IO.println("用户文件读取失败，已重置");
-    //         }
-    //     } else {
-    //         IO.read(IO.DEFAULT);
-    //         IO.println("已读取默认配置");
-    //     }
-    // }
+    static {
+        new Hello().exec();
+    }
 }
 
 class CommandsList { // 存储指令的列表，使用饿汉单态模式设计

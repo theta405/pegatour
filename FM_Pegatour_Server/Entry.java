@@ -1,6 +1,6 @@
 package FM_Pegatour_Server;
 
-import FM_Pegatour_Server.LoadServer;
+import FM_Pegatour_Server.sys.LoadServer;
 
 public class Entry {
         public static void main(String[] args) {

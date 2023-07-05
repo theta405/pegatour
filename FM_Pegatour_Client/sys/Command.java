@@ -1,10 +1,35 @@
 package FM_Pegatour_Client.sys;
 
+import org.json.JSONObject;
+
 public abstract class Command { // 指令抽象类
     @Override // 覆写toString方法
     public abstract String toString(); // 在控制台中的名称
     public abstract String identifier(); // 指令标识符，用于对端通讯
     public abstract void exec(); // 执行
+}
+
+class Hello extends Command {
+    public String toString() {
+        return "测试连接";
+    }
+
+    public String identifier() {
+        return "hello";
+    }
+
+    public void exec() {
+        IO.println("正在连接服务器...");
+        JSONObject data = new JSONObject();
+        data.put("hello", "client hello");
+        JSONObject response = Request.getInstance().send(identifier(), data);
+        if (response.getInt("status") == 0) {
+            IO.println("连接成功");
+        } else {
+            IO.println(response.getString("message"));
+            System.exit(1);
+        }
+    }
 }
 
 class Register extends Command {
@@ -28,6 +53,20 @@ class Deactivate extends Command {
 
     public String identifier() {
         return "deactivate";
+    }
+
+    public void exec() {
+
+    }
+}
+
+class QueryMembers extends Command {
+    public String toString() {
+        return "查询会员";
+    }
+
+    public String identifier() {
+        return "query_members";
     }
 
     public void exec() {
@@ -63,27 +102,13 @@ class AddRoute extends Command {
     }
 }
 
-class ModifyRoute extends Command {
-    public String toString() {
-        return "修改线路";
-    }
-
-    public String identifier() {
-        return "modify_route";
-    }
-
-    public void exec() {
-
-    }
-}
-
-class QueryRoute extends Command {
+class QueryRoutes extends Command {
     public String toString() {
         return "查询线路";
     }
 
     public String identifier() {
-        return "query_route";
+        return "query_routes";
     }
 
     public void exec() {
@@ -105,20 +130,6 @@ class BookRoute extends Command {
     }
 }
 
-class CancelRoute extends Command {
-    public String toString() {
-        return "取消线路";
-    }
-
-    public String identifier() {
-        return "cancel_route";
-    }
-
-    public void exec() {
-
-    }
-}
-
 class CommentRoute extends Command {
     public String toString() {
         return "评价线路";
@@ -133,13 +144,13 @@ class CommentRoute extends Command {
     }
 }
 
-class BatchImport extends Command {
+class ImportMembers extends Command {
     public String toString() {
-        return "批量导入线路";
+        return "批量导入会员";
     }
 
     public String identifier() {
-        return "batch_import";
+        return "import_members";
     }
 
     public void exec() {
@@ -147,13 +158,41 @@ class BatchImport extends Command {
     }
 }
 
-class ExportQuery extends Command {
+class ImportRoutes extends Command {
     public String toString() {
-        return "导出查询信息";
+        return "批量导入线路";
     }
 
     public String identifier() {
-        return "export_query";
+        return "import_routes";
+    }
+
+    public void exec() {
+
+    }
+}
+
+class ExportMembers extends Command {
+    public String toString() {
+        return "导出会员信息";
+    }
+
+    public String identifier() {
+        return "export_members";
+    }
+
+    public void exec() {
+
+    }
+}
+
+class ExportRoutes extends Command {
+    public String toString() {
+        return "导出线路信息";
+    }
+
+    public String identifier() {
+        return "export_routes";
     }
 
     public void exec() {
@@ -188,35 +227,6 @@ class AdvanceDays extends Command {
 
     }
 }
-
-class ChangeSettings extends Command {
-    public String toString() {
-        return "修改设置";
-    }
-
-    public String identifier() {
-        return "";
-    }
-
-    public void exec() {
-
-    }
-}
-
-class ResetSettings extends Command {
-    public String toString() {
-        return "重置设置";
-    }
-
-    public String identifier() {
-        return "";
-    }
-
-    public void exec() {
-
-    }
-}
-
 class Exit extends Command {
     public String toString() {
         return "退出";
