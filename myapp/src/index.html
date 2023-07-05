@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MODDIT Search Engine</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/css/global.css" />
+    <link rel="stylesheet" href="src/css/config.css" />
+    <link rel="stylesheet" href="src/css/search.css" />
+    <link rel="stylesheet" href="src/css/navBar.css" />
+    <link rel="stylesheet" href="src/css/msgBox.css" />
+    <link rel="shortcut icon" href="icon.ico" />
+    <script src="src/js/configs.js"></script>
+    <script src="src/js/jQuery.js"></script>
+    <script src="src/js/msgBox.js"></script>
+    <script src="src/js/search.js"></script>
+  </head>
+  <body class="scroll">
+    <div id="navBarContainer">
+      <div id="navLeft">
+          <img src="src/images/icon.svg" alt="logo" id="bannerLogo" onclick="self.location=index" />
+          <div id="navTitle" onclick="self.location=index">MODDIT</div>
+          <div id="searchContainer">
+              <input type="text" name="search" class="inputBox" id="searchBox" maxlength="20" title="Input content you search for" placeholder="Search" />
+              <img src="src/images/search.svg" alt="search" id="search" onclick="search()" />
+          </div>
+      </div>
+      <div id="navRight">
+          <div onclick="showConfigs()" class="navButton">
+              <img src="src/images/settings.svg" alt="settings" id="settings" />
+          </div>
+      </div>
+    </div>
+  <div id="searchToolBox">
+    <a id="searchIndicator">Type in to search</a>
+    <select id="systems" name="systems">
+      
+    </select>
+  </div>
+  <div id="resultsBox">
+    
+  </div>
+  <div id="configsBlur"></div>
+  <div id="configsBox">
+    <div class="configBox">
+      <p id="configsTitle">Configs</p>
+      <img src="src/images/quit.svg" alt="close" id="configsClose" draggable="false" onclick="closeConfigs()" />
+    </div>
+    <div id="configsMain" class="configBox">
+      <div id="configsLeft" class="noScroll">
+        
+      </div>
+      <form id="configsRight" class="noScroll" method="post" onsubmit="return updateConfigs()">
+        
+      </form>
+    </div>
+    <div class="configBox">
+      <div class="configsButton" onclick="closeConfigs()">
+        <a>Close</a>
+      </div>
+      <div class="configsButton" onclick="formSubmit()">
+        <a>Save</a>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

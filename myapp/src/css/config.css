@@ -1,0 +1,214 @@
+@keyframes selected {
+    0% {transform: translate(0, 0);}
+    65% {transform: translate(5px, 0);}
+    100% {transform: translate(0, 0);}
+}
+
+#configsBlur {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--shadow-medium);
+    backdrop-filter: blur(7px);
+}
+
+#configsBox {
+    display: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    max-width: 550px;
+    height: 580px;
+    width: 93%;
+    background-color: var(--background-white);
+    border-radius: 30px;
+    padding: 5px;
+}
+
+.configBox {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
+    margin-top: 20px;
+}
+
+#configsTitle {
+    color: var(--darker-green);
+    font-size: 40px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+#configsClose {
+    transform: translate(0, 2px);
+    height: 26px;
+    cursor: pointer;
+}
+
+#configsClose:hover {
+    transform: translate(0, 2px) rotate(180deg) scale(1.2);
+    filter: brightness(1.5);
+}
+
+#configsMain {
+    background-color: var(--element-white);
+    border-radius: 25px;
+    padding: 9px;
+    height: 65%;
+    box-shadow: 2px 2px 8px 0 var(--shadow-light);
+}
+
+#configsLeft {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    border-right: 2px solid var(--separator-line);
+    height: 100%;
+    width: 32%;
+}
+
+#configsLeft > .configName:first-child {
+    border-radius: 15px 0 0 0;
+}
+
+#configsLeft > .configName:last-child {
+    border-radius: 0 0 0 15px;
+}
+
+.configName {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    height: 50px;
+    width: calc(100% - 8px);
+    margin-right: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.configName:hover {
+    background-color: var(--shadow-light);
+}
+
+.configName::before {
+    content: "";
+    display: block;
+    margin: 0 7px;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/entry.svg");
+    background-size: auto 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.configName > a {
+    color: var(--tags-green);
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+#currentConfig {
+    cursor: unset;
+    background-color: var(--tags-green);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+#currentConfig::before {
+    filter: brightness(100);
+    animation: selected .4s ease forwards;
+}
+
+#currentConfig > a {
+    color: white;
+}
+
+#configsRight {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    height: 100%;
+    width: 68%;
+}
+
+.configEntryBox {
+    flex-shrink: 0;
+    height: 100px;
+    width: 100%;
+    margin-left: 8px;
+    animation: appended .5s ease;
+}
+
+.configEntryBox > p {
+    color: var(--darker-green);
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 10px 0 10px 15px;
+}
+
+.configEntryBox > input {
+    width: 253px;
+    height: 20px;
+    margin-left: 10px;
+    padding: 9px 15px;
+    font-size: 16px;
+    border: 3px solid var(--separator-line);
+    border-radius: 8px;
+    outline: none;
+    background-color: var(--element-white);
+}
+
+.configsButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48%;
+    height: 50px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 8px 0 var(--shadow-light);
+    cursor: pointer;
+    user-select: none;
+}
+
+.configsButton:hover {
+    filter: brightness(1.07);
+}
+
+.configsButton > a {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#configsBox > .configBox:last-child {
+    width: calc(85% + 18px);
+}
+
+#configsBox > .configBox:last-child > .configsButton:first-child {
+    background-color: var(--tags-light-green);
+    color: var(--tags-light-green-text);
+}
+
+#configsBox > .configBox:last-child > .configsButton:last-child {
+    background-color: var(--tags-green);
+    color: white;
+}
