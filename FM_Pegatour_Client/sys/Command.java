@@ -5,7 +5,14 @@ import org.json.JSONArray;
 import jxl.Cell;  
 import jxl.Sheet;  
 import jxl.Workbook;  
-import jxl.read.biff.BiffException; 
+import jxl.read.biff.BiffException;
+import java.io.File;
+import java.io.FileOutputStream;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+
+
 
 public abstract class Command { // 指令抽象类
     @Override // 覆写toString方法
@@ -218,19 +225,6 @@ class ImportMembers extends Command {
     }
 }
 
-class ImportRoutes extends Command {
-    public String toString() {
-        return "批量导入线路";
-    }
-
-    public String identifier() {
-        return "import_routes";
-    }
-
-    public void exec() {
-
-    }
-}
 
 class ExportMembers extends Command {
     public String toString() {
@@ -241,8 +235,55 @@ class ExportMembers extends Command {
         return "export_members";
     }
 
-    public void exec() {
+    public void exec(JSONObject data) {
+        // 创建一个Excel文件
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        // 创建一个工作表
+        HSSFSheet sheet = workbook.createSheet("members");
+        // 添加表头行
+        HSSFRow hssfRow = sheet.createRow(0);
+        // 添加表头内容
+        HSSFCell headCell = hssfRow.createCell(0);
+        headCell.setCellValue("会员ID");
+        
+        headCell = hssfRow.createCell(1);
+        headCell.setCellValue("手机号码");
 
+        headCell = hssfRow.createCell(2);
+        headCell.setCellValue("余额");
+  
+        headCell = hssfRow.createCell(3);
+        headCell.setCellValue("性别");
+
+        headCell = hssfRow.createCell(4);
+        headCell.setCellValue("生日");
+
+        headCell = hssfRow.createCell(5);
+        headCell.setCellValue("路线");
+        for (int i = 0; i < list.length; i++) {
+              hssfRow = sheet.createRow((int) i + 1);
+              // 创建单元格，并设置值
+              HSSFCell cell = hssfRow.createCell(0);
+              cell.setCellValue(data[i].getString("ID");
+              cell = hssfRow.createCell(1);
+              cell.setCellValue(data[i].getString("Phone"));
+              cell = hssfRow.createCell(2);
+              cell.setCellValue(data[i].getString("Rest"));
+              cell = hssfRow.createCell(3);
+              cell.setCellValue(data[i].getString("Gender");
+              cell = hssfRow.createCell(4);
+              cell.setCellValue(data[i].getString("Birthday");
+              cell = hssfRow.createCell(5);
+              cell.setCellValue(data[i].getString("Route");
+        
+        }
+        try {
+          OutputStream outputStream = new FileOutputStream("D:/temp/member.xls");
+          workbook.write(outputStream);
+          outputStream.close();
+        } catch (Exception e) {
+          e.printStackTrace();
+    }
     }
 }
 
@@ -255,10 +296,33 @@ class ExportRoutes extends Command {
         return "export_routes";
     }
 
-    public void exec() {
-
+    public void exec(JSONObject data) {
+       // 创建一个Excel文件
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        // 创建一个工作表
+        HSSFSheet sheet = workbook.createSheet("routes");
+        // 添加表头行
+        HSSFRow hssfRow = sheet.createRow(0);
+        // 添加表头内容
+        HSSFCell headCell = hssfRow.createCell(0);
+        headCell.setCellValue("路线");
+        for (int i = 0; i < list.length; i++) {
+              hssfRow = sheet.createRow((int) i + 1);
+              // 创建单元格，并设置值
+              HSSFCell cell = hssfRow.createCell(0);
+              cell.setCellValue(data[i].getString("Route"));        
+        }
+        try {
+          OutputStream outputStream = new FileOutputStream("D:/temp/route.xls");
+          workbook.write(outputStream);
+          outputStream.close();
+        } catch (Exception e) {
+          e.printStackTrace();
+    }
     }
 }
+
+
 
 class ExportSummary extends Command {
     public String toString() {
@@ -269,8 +333,20 @@ class ExportSummary extends Command {
         return "export_summary";
     }
 
-    public void exec() {
-
+    public void exec(JSONObject data) {
+        
+        XWPFDocument document= new XWPFDocument(); 
+        //Write the Document in file system
+        FileOutputStream out = new FileOutputStream(
+        new File("d:\\temp\\createparagraph.docx"));
+        
+        //create Paragraph
+        XWPFParagraph paragraph = document.createParagraph();
+        XWPFRun run=paragraph.createRun();
+        run.setText(data.get);
+        document.write(out);
+        out.close();
+        System.out.println("createparagraph.docx written successfully");
     }
 }
 
