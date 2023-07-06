@@ -14,7 +14,10 @@ public class Request {
     PrintWriter out;
     BufferedReader in;
 
-    public JSONObject send(String identifier, JSONObject data) {
+    public JSONObject send(String identifier, JSONObject data, boolean quiet) {
+        if (!quiet) {
+            IO.println("正在发送请求...");
+        }
         try (
             Socket socket = new Socket("localhost", 8080);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);

@@ -24,12 +24,11 @@ class OtherCommands {
     }
 
     public void hello() {
-        IO.println("正在连接服务器...");
         JSONObject data = new JSONObject();
         data.put("hello", "client hello");
-        JSONObject response = new Request().send(HELLO, data);
+        JSONObject response = new Request().send(HELLO, data, false);
         if (response.getInt("status") == 0 && response.getString("message").equals("server hello")) {
-            IO.println("连接成功");
+            IO.println("服务器连接成功");
         } else {
             IO.println(response.getString("message"));
             System.exit(1);
@@ -37,7 +36,7 @@ class OtherCommands {
     }
 
     public String time() {
-        JSONObject response = new Request().send(TIME, nullData);
+        JSONObject response = new Request().send(TIME, nullData, true);
         if (response.getInt("status") == 0) {
             return response.getString("message");
         } else {
