@@ -15,18 +15,18 @@ public class Member {
 	private String Phone;
 	private String Gender;
 	private String Birthday;
+    private int Money;
 	private JSONArray BookRecord;
-	private JSONObject CommentRecord;
 	
-	public Member(String id, String name, String passwd, String id2, String phone, String gender, String birthday, String bookrecord, String commentrecord) {
+	public Member(String id, String name, String passwd, String id2, String phone, String gender, String birthday, int money, String bookrecord) {
 		this.Name=name;
 		this.Passwd=passwd;
 		this.ID2=id2;
 		this.Phone=phone;
 		this.Gender=gender;
 		this.Birthday=birthday;
+        this.Money=money;
         this.BookRecord=new JSONArray(bookrecord);
-        this.CommentRecord=new JSONObject(commentrecord);
 	}
 
     public Member() {
@@ -36,8 +36,8 @@ public class Member {
         set_Phone();
         set_Gender();
         set_Birthday();
+        this.Money=0;
         this.BookRecord=new JSONArray();
-        this.CommentRecord=new JSONObject();
     }
 	
 	public void set_Name() {
@@ -95,13 +95,13 @@ public class Member {
 	public String get_Birthday() {
 		return this.Birthday;
 	}
+
+    public int get_Money() {
+        return this.Money;
+    }
 	
 	public JSONArray get_BookRecord() {
 		return this.BookRecord;
-	}
-	
-	public JSONObject get_CommentRecord() {
-		return this.CommentRecord;
 	}
 
     public JSONArray toArray() {
@@ -112,8 +112,8 @@ public class Member {
         array.put(get_Phone());
         array.put(get_Gender());
         array.put(get_Birthday());
+        array.put(get_Money());
         array.put(get_BookRecord());
-        array.put(get_CommentRecord());
         return array;
     }
 }

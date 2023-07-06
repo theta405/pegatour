@@ -9,18 +9,15 @@ public class Route {
 	private String ID;
 	private String Date;
 	private String Destination;
-    private int Cost;
 	
-	public Route(String date, String destination, int cost) {
+	public Route(String date, String destination) {
 		this.Date=date;
 		this.Destination=destination;
-        this.Cost=cost;
 	}
 
     public Route() {
         set_Date();
         set_Destination();
-        set_Cost();
     }
 	
 	public void set_Destination() {
@@ -30,10 +27,6 @@ public class Route {
 	public void set_Date() {
         this.Date=IO.getStrMatch("输入开始日期", "\\d{4}-\\d{2}-\\d{2}");
 	}
-
-    public void set_Cost() {
-        this.Cost=IO.getInt("输入金额", 0, 1000000);
-    }
 	
 	public String get_ID() {
 		return this.ID;
@@ -45,9 +38,5 @@ public class Route {
 	
 	public String get_Destination() {
 		return this.Destination;
-	}
-	
-	public int get_Cost() {
-		return this.Cost;
 	}
 }

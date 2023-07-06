@@ -75,6 +75,16 @@ class Modify extends Command {
     }
 }
 
+class Deposit extends Command {
+    public String identifier() {
+        return "deposit";
+    }
+
+    public void exec(JSONObject data, JSONObject response) {
+
+    }
+}
+
 class AddRoute extends Command {
     public String identifier() {
         return "add_route";
@@ -98,16 +108,6 @@ class QueryRoutes extends Command {
 class BookRoute extends Command {
     public String identifier() {
         return "book_route";
-    }
-
-    public void exec(JSONObject data, JSONObject response) {
-
-    }
-}
-
-class CommentRoute extends Command {
-    public String identifier() {
-        return "comment_route";
     }
 
     public void exec(JSONObject data, JSONObject response) {

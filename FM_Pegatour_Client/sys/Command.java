@@ -115,6 +115,20 @@ class Modify extends Command {
     }
 }
 
+class Deposit extends Command {
+    public String toString() {
+        return "账户充值";
+    }
+
+    public String identifier() {
+        return "deposit";
+    }
+
+    public void exec() {
+
+    }
+}
+
 class AddRoute extends Command {
     public String toString() {
         return "添加线路";
@@ -150,20 +164,6 @@ class BookRoute extends Command {
 
     public String identifier() {
         return "book_route";
-    }
-
-    public void exec() {
-
-    }
-}
-
-class CommentRoute extends Command {
-    public String toString() {
-        return "评价线路";
-    }
-
-    public String identifier() {
-        return "comment_route";
     }
 
     public void exec() {
