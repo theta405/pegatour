@@ -23,61 +23,75 @@ public class Database {
 
     public JSONObject executeDatabase(Function<JSONObject, JSONObject> method, JSONObject input) {
         lock.lock();
+        JSONObject result;
+
         try {
-            return method.apply(input);
+            result = method.apply(input);
         } catch (Exception e) {
             e.printStackTrace();
-            return "数据库操作失败";
+            result = new JSONObject("数据库操作失败");
         } finally {
             lock.unlock();
         }
+        return result;
     }
 
     public JSONObject addMember(JSONObject input) {
-
+        return new JSONObject();
     }
 
     public JSONObject addMembers(JSONObject input) {
+        return new JSONObject();
 
     }
 
     public JSONObject getMember(JSONObject input) {
+        return new JSONObject();
 
     }
 
     public JSONObject getMembers(JSONObject input) {
+        return new JSONObject();
 
     }
 
     public JSONObject removeMembers(JSONObject input) {
+        return new JSONObject();
 
     }
 
     public JSONObject modifyMembers(JSONObject input) {
+        return new JSONObject();
 
     }
 
     public JSONObject addRoute(JSONObject input) {
+        return new JSONObject();
 
     }
 
     public JSONObject addRoutes(JSONObject input) {
+        return new JSONObject();
 
     }
 
     public JSONObject getRoute(JSONObject input) {
+        return new JSONObject();
 
     }
 
     public JSONObject getRoutes(JSONObject input) {
+        return new JSONObject();
 
     }
 
     public JSONObject getTime(JSONObject input) {
+        return new JSONObject();
 
     }
 
     public JSONObject modifyTime(JSONObject input) {
+        return new JSONObject();
 
     }
 }

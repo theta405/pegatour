@@ -11,39 +11,33 @@ public class Member {
 	private String ID;
 	private String Name;
 	private String Passwd;
+	private String ID2;
 	private String Phone;
 	private String Gender;
 	private String Birthday;
-    private int Money;
 	private JSONArray BookRecord;
 	private JSONObject CommentRecord;
 	
-	public Member(String id, String name, String passwd, String phone, String gender, String birthday, int money, String bookrecord, String commentrecord) {
-		this.ID=id;
+	public Member(String id, String name, String passwd, String id2, String phone, String gender, String birthday, String bookrecord, String commentrecord) {
 		this.Name=name;
 		this.Passwd=passwd;
+		this.ID2=id2;
 		this.Phone=phone;
 		this.Gender=gender;
 		this.Birthday=birthday;
-        this.Money=money;
         this.BookRecord=new JSONArray(bookrecord);
         this.CommentRecord=new JSONObject(commentrecord);
 	}
 
     public Member() {
-        set_ID();
         set_Name();
         set_Passwd();
+        set_ID2();
         set_Phone();
         set_Gender();
         set_Birthday();
-        this.Money=0;
         this.BookRecord=new JSONArray();
         this.CommentRecord=new JSONObject();
-    }
-    
-    public void set_ID() {
-        this.ID=IO.getStrMatch("输入身份ID", "[0-9]{12}");
     }
 	
 	public void set_Name() {
@@ -53,6 +47,10 @@ public class Member {
 	public void set_Passwd() {
         this.Passwd=IO.getStrMatch("输入密码", "[0-9]{4,20}");
 	}
+    
+    public void set_ID2() {
+        this.ID2=IO.getStrMatch("输入身份ID", "[0-9]{12}");
+    }
 	
 	public void set_Phone() {
         this.Phone=IO.getStrMatch("输入手机号", "[0-9]{11}");
@@ -82,6 +80,10 @@ public class Member {
 		return this.Passwd;
 	}
 	
+	public String get_ID2() {
+		return this.ID2;
+	}
+	
 	public String get_Phone() {
 		return this.Phone;
 	}
@@ -93,10 +95,6 @@ public class Member {
 	public String get_Birthday() {
 		return this.Birthday;
 	}
-
-    public int get_Money() {
-        return this.Money;
-    }
 	
 	public JSONArray get_BookRecord() {
 		return this.BookRecord;
@@ -108,13 +106,12 @@ public class Member {
 
     public JSONArray toArray() {
         JSONArray array = new JSONArray();
-        array.put(get_ID());
         array.put(get_Name());
         array.put(get_Passwd());
+        array.put(get_ID2());
         array.put(get_Phone());
         array.put(get_Gender());
         array.put(get_Birthday());
-        array.put(get_Money());
         array.put(get_BookRecord());
         array.put(get_CommentRecord());
         return array;
