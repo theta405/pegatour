@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "FM_Pegatour_Client/lib/json.jar"
+        "FM_Pegatour_Client/lib/json.jar",
+        "FM_Pegatour_Client/lib/jxl-2.6.10.jar"
     ]
 }

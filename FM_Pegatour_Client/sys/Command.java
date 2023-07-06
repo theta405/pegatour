@@ -2,6 +2,10 @@ package FM_Pegatour_Client.sys;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
+import jxl.Cell;  
+import jxl.Sheet;  
+import jxl.Workbook;  
+import jxl.read.biff.BiffException; 
 
 public abstract class Command { // 指令抽象类
     @Override // 覆写toString方法
@@ -64,7 +68,7 @@ class Register extends Command {
         data.put("array", member.toArray());
 
         JSONObject response = new Request().send(identifier(), data, false);
-
+        
         if (response.getInt("status") == 0) {
             IO.println("注册成功");;
         } else {
@@ -181,34 +185,36 @@ class ImportMembers extends Command {
     }
 
     public void exec() {
-        JSONObject data = new JSONObject();
-        JSONObject data2 = new JSONObject();
-        String[] Columns = {};
-        // 1、构造excel文件输入流对象  
-        String sFilePath = path;  
-        InputStream is = new FileInputStream(sFilePath);  
-        // 2、声明工作簿对象  
-        Workbook rwb = Workbook.getWorkbook(is);  
-        // 3、获得工作簿的个数,对应于一个excel中的工作表个数  
-        rwb.getNumberOfSheets();  
+        // JSONObject data = new JSONObject();
+        // JSONObject data2 = new JSONObject();
+        // String[] Columns = {};
+        // // 1、构造excel文件输入流对象  
+        // String sFilePath = path;  
+        // InputStream is = new FileInputStream(sFilePath);  
+        // // 2、声明工作簿对象  
+        // Workbook rwb = Workbook.getWorkbook(is);  
+        // // 3、获得工作簿的个数,对应于一个excel中的工作表个数  
+        // rwb.getNumberOfSheets();  
   
-        Sheet oFirstSheet = rwb.getSheet(0);// 使用索引形式获取第一个工作表，也可以使用rwb.getSheet(sheetName);其中sheetName表示的是工作表的名称  
-        System.out.println("工作表名称：" + oFirstSheet.getName());  
-        int rows = oFirstSheet.getRows();//获取工作表中的总行数  
-        int columns = oFirstSheet.getColumns();//获取工作表中的总列数  
-        for (int i = 1; i < rows; i++) {
-                data2.put(data);
-                data = null;
-            for (int j = 0; j < columns; j++) {  
-                Cell oCell= oFirstSheet.getCell(j,i);//需要注意的是这里的getCell方法的参数，第一个是指定第几列，第二个参数才是指定第几行  
-                data.put(Columns[j%columns], oCell.toString);
-        JSONObject response = new Request().send("import_members", data2, false);
-        if (response.getInt("status") == 0 && response.getString("message").equals("server hello")) {
-            IO.println("服务器连接成功");
-        } else {
-            IO.println(response.getString("message"));
-            System.exit(1);
-        }
+        // Sheet oFirstSheet = rwb.getSheet(0);// 使用索引形式获取第一个工作表，也可以使用rwb.getSheet(sheetName);其中sheetName表示的是工作表的名称  
+        // System.out.println("工作表名称：" + oFirstSheet.getName());  
+        // int rows = oFirstSheet.getRows();//获取工作表中的总行数  
+        // int columns = oFirstSheet.getColumns();//获取工作表中的总列数  
+        // for (int i = 1; i < rows; i++) {
+        //         data2.put(data);
+        //         data = null;
+        //     for (int j = 0; j < columns; j++) {  
+        //         Cell oCell= oFirstSheet.getCell(j,i);//需要注意的是这里的getCell方法的参数，第一个是指定第几列，第二个参数才是指定第几行  
+        //         data.put(Columns[j%columns], oCell.toString);
+        //         JSONObject response = new Request().send("import_members", data2, false);
+        //         if (response.getInt("status") == 0 && response.getString("message").equals("server hello")) {
+        //             IO.println("服务器连接成功");
+        //         } else {
+        //             IO.println(response.getString("message"));
+        //             System.exit(1);
+        //         }
+        //     }
+        // }
     }
 }
 

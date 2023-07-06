@@ -1,8 +1,7 @@
 package FM_Pegatour_Server.sys;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.function.Function;
 
 import java.sql.*;
 import java.util.concurrent.locks.Lock;
@@ -21,23 +20,24 @@ public class Database {
         }
     }
 
-    public JSONObject executeDatabase(Function<JSONObject, JSONObject> method, JSONObject input) {
+    public void addMember(JSONArray array) throws Exception {
         lock.lock();
-        JSONObject result;
+        int i = 0;
+        String sql = "INSERT INTO members (name, passwd, id2, phone, gender, birthday, money, book) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
 
-        try {
-            result = method.apply(input);
-        } catch (Exception e) {
-            e.printStackTrace();
-            result = new JSONObject("数据库操作失败");
-        } finally {
-            lock.unlock();
-        }
-        return result;
-    }
+        pstmt.setString(i + 1, array.getString(i++)); // 名字
+        pstmt.setString(i + 1, array.getString(i++)); // 密码
+        pstmt.setString(i + 1, array.getString(i++)); // ID2
+        pstmt.setString(i + 1, array.getString(i++)); // 手机号
+        pstmt.setString(i + 1, array.getString(i++)); // 性别
+        pstmt.setString(i + 1, array.getString(i++)); // 出生日期
+        pstmt.setInt(i + 1, array.getInt(i++)); // 余额
+        pstmt.setString(i + 1, array.getJSONArray(i).toString()); // 预定线路
 
-    public JSONObject addMember(JSONObject input) {
-        return new JSONObject();
+        pstmt.executeUpdate();
+
+        lock.unlock();
     }
 
     public JSONObject addMembers(JSONObject input) {
