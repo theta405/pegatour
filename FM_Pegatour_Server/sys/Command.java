@@ -29,7 +29,8 @@ class Time extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-        
+        response.put("status", 0);
+        response.put("message", LoadServer.date.toString());
     }
 }
 

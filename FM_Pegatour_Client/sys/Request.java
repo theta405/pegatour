@@ -9,30 +9,17 @@ import java.net.Socket;
 
 public class Request {
 
-    // 静态变量
-    private static Request request = new Request();
-
     // 成员变量
     Socket socket;
     PrintWriter out;
     BufferedReader in;
 
-    private Request() {
-        try {
-            socket = new Socket("localhost", 8080);
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static Request getInstance() {
-        return request;
-    }
-
     public JSONObject send(String identifier, JSONObject data) {
-        try {
+        try (
+            Socket socket = new Socket("localhost", 8080);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
+        ) {
             JSONObject request = new JSONObject();
             request.put("identifier", identifier);
             request.put("data",data);

@@ -9,25 +9,41 @@ public abstract class Command { // 指令抽象类
     public abstract void exec(); // 执行
 }
 
-class Hello extends Command {
-    public String toString() {
-        return "测试连接";
+class OtherCommands {
+    private String HELLO = "hello";
+    private String TIME = "time";
+
+    public static JSONObject nullData = new JSONObject("{\"null\":\"null\"}");
+
+    private static OtherCommands otherCommands = new OtherCommands();
+
+    private OtherCommands() {}
+
+    public static OtherCommands getInstance() {
+        return otherCommands;
     }
 
-    public String identifier() {
-        return "hello";
-    }
-
-    public void exec() {
+    public void hello() {
         IO.println("正在连接服务器...");
         JSONObject data = new JSONObject();
         data.put("hello", "client hello");
-        JSONObject response = Request.getInstance().send(identifier(), data);
-        if (response.getInt("status") == 0) {
+        JSONObject response = new Request().send(HELLO, data);
+        if (response.getInt("status") == 0 && response.getString("message").equals("server hello")) {
             IO.println("连接成功");
         } else {
             IO.println(response.getString("message"));
             System.exit(1);
+        }
+    }
+
+    public String time() {
+        JSONObject response = new Request().send(TIME, nullData);
+        if (response.getInt("status") == 0) {
+            return response.getString("message");
+        } else {
+            IO.println(response.getString("message"));
+            System.exit(1);
+            return response.getString("message");
         }
     }
 }

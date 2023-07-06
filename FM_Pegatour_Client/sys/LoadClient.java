@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class LoadClient {
-    
-    // 静态方法
-    private static void generateDefaultSettings() {
-
-    }
 
     // 成员方法
     public void init() {
@@ -40,7 +35,7 @@ public class LoadClient {
     }
 
     static {
-        new Hello().exec();
+        OtherCommands.getInstance().hello();
     }
 }
 
@@ -65,6 +60,8 @@ class CommandsList { // 存储指令的列表，使用饿汉单态模式设计
         Iterator<Command> cmd = commands.iterator();
 
         IO.printSep(IO.SEP_MENU); // 打印分隔符
+
+        IO.println("飞马历：" + OtherCommands.getInstance().time());
 
         for (; cmd.hasNext(); ) {
             IO.println(String // 格式化字符串
