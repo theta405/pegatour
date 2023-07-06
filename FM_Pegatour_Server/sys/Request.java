@@ -32,7 +32,7 @@ public class Request {
 
     public void handleRequests() {
         try {
-            System.out.println("服务器已启动");
+            IO.println("服务器已启动");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 new Thread(new ClientHandler(clientSocket)).start();

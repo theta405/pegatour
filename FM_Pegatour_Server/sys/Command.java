@@ -40,7 +40,8 @@ class Register extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-        
+        IO.println(data.toString());
+        response.put("status", 0);
     }
 }
 

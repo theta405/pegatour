@@ -1,6 +1,7 @@
 package FM_Pegatour_Client.sys;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 public abstract class Command { // 指令抽象类
     @Override // 覆写toString方法
@@ -57,7 +58,18 @@ class Register extends Command {
     }
 
     public void exec() {
-        
+        Member member = new Member();
+
+        JSONObject data = new JSONObject();
+        data.put("array", member.toArray());
+
+        JSONObject response = new Request().send(identifier(), data, false);
+
+        if (response.getInt("status") == 0) {
+            IO.println("注册成功");;
+        } else {
+            IO.println(response.getString("message"));
+        }
     }
 }
 
