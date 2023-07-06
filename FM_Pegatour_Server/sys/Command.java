@@ -6,7 +6,9 @@ import java.io.InputStream;
 import jxl.Cell;  
 import jxl.Sheet;  
 import jxl.Workbook;  
-import jxl.read.biff.BiffException; 
+import jxl.read.biff.BiffException;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public abstract class Command { // 指令抽象类
@@ -61,7 +63,7 @@ class Register extends Command {
             response.put("message", "注册成功");
         } catch (Exception e) {
             response.put("status", 1);
-            response.put("message", "数据库操作失败");
+            response.put("message", "数据库操作失败或年龄不够18岁");
             e.printStackTrace();
         }
     }
@@ -73,7 +75,20 @@ class Deactivate extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-
+        Database db = new Database();
+        try {
+            boolean result = db.removeMember(data.getString("id"));
+            response.put("status", 0);
+            if (result) {
+                response.put("message", "注销成功");
+            } else {
+                response.put("message", "会员不存在");
+            }
+        } catch (Exception e) {
+            response.put("status", 1);
+            response.put("message", "数据库操作失败");
+            e.printStackTrace();
+        }
     }
 }
 
@@ -83,7 +98,16 @@ class QueryMembers extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-
+        Database db = new Database();
+        try {
+            JSONArray result = db.getMembers();
+            response.put("status", 0);
+            response.put("message", result);
+        } catch (Exception e) {
+            response.put("status", 1);
+            response.put("message", "数据库操作失败，或没有会员");
+            e.printStackTrace();
+        }
     }
 }
 
@@ -93,7 +117,20 @@ class Modify extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-
+        Database db = new Database();
+        try {
+            boolean result = db.modifyMembers(data.getString("id"), data.getString("pass"));
+            response.put("status", 0);
+            if (result) {
+                response.put("message", "修改成功");
+            } else {
+                response.put("message", "会员不存在");
+            }
+        } catch (Exception e) {
+            response.put("status", 1);
+            response.put("message", "数据库操作失败");
+            e.printStackTrace();
+        }
     }
 }
 
@@ -103,7 +140,23 @@ class Deposit extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-
+        Database db = new Database();
+        try {
+            int money = data.getInt("money");
+            if (money >= 888) {
+                money *= 1.1;
+            }
+            boolean result = db.deposit(data.getString("id"), money);
+            response.put("status", 0);
+            if (result) {
+                response.put("message", "充值成功");
+            } else {
+                response.put("message", "会员不存在");
+            }
+        } catch (Exception e) {
+            response.put("status", 1);
+            response.put("message", "数据库操作失败");
+        }
     }
 }
 
@@ -113,7 +166,16 @@ class AddRoute extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-
+        Database db = new Database();
+        try {
+            db.addRoute(data.getJSONArray("array"));
+            response.put("status", 0);
+            response.put("message", "添加成功");
+        } catch (Exception e) {
+            response.put("status", 1);
+            response.put("message", "数据库操作失败");
+            e.printStackTrace();
+        }
     }
 }
 
@@ -123,7 +185,16 @@ class QueryRoutes extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-
+        Database db = new Database();
+        try {
+            JSONArray result = db.getRoutes();
+            response.put("status", 0);
+            response.put("message", result);
+        } catch (Exception e) {
+            response.put("status", 1);
+            response.put("message", "数据库操作失败，或没有线路");
+            e.printStackTrace();
+        }
     }
 }
 
@@ -133,7 +204,20 @@ class BookRoute extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-
+        Database db = new Database();
+        try {
+            boolean result = db.book(data.getString("memberID"), data.getString("routeID"));
+            response.put("status", 0);
+            if (result) {
+                response.put("message", "预订成功");
+            } else {
+                response.put("message", "预订失败，可能是数据不存在、线路已预订或过期");
+            }
+        } catch (Exception e) {
+            response.put("status", 1);
+            response.put("message", "数据库操作失败");
+            e.printStackTrace();
+        }
     }
 }
 

@@ -1,9 +1,10 @@
 package FM_Pegatour_Client.sys;
 
+import org.json.JSONArray;
+
 /*
- * Member主要用于用户信息的封装
+ * Route主要用于线路信息的封装
  */
-import java.util.regex.*;
 
 public class Route {
 	private String ID;
@@ -39,4 +40,11 @@ public class Route {
 	public String get_Destination() {
 		return this.Destination;
 	}
+
+    public JSONArray toArray() {
+        JSONArray array = new JSONArray();
+        array.put(get_Destination());
+        array.put(get_Date());
+        return array;
+    }
 }

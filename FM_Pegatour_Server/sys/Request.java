@@ -24,7 +24,7 @@ public class Request {
     // 成员方法
     private Request() {
         try {
-            serverSocket = new ServerSocket(8080);
+            serverSocket = new ServerSocket(33060);
         } catch (Exception e) {
             e.printStackTrace();
         }

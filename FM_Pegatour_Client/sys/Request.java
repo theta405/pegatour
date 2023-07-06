@@ -19,7 +19,7 @@ public class Request {
             IO.println("正在发送请求...");
         }
         try (
-            Socket socket = new Socket("localhost", 8080);
+            Socket socket = new Socket("localhost", 33060);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
         ) {

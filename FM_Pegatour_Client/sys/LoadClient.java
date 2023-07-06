@@ -19,7 +19,6 @@ public class LoadClient {
             .addCommand(new QueryRoutes())
             .addCommand(new BookRoute())
             .addCommand(new ImportMembers())
-            .addCommand(new ImportRoutes())
             .addCommand(new ExportMembers())
             .addCommand(new ExportRoutes())
             .addCommand(new ExportSummary())

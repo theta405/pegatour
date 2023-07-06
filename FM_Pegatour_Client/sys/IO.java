@@ -3,6 +3,9 @@ package FM_Pegatour_Client.sys;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import org.json.JSONArray;
+
 import java.util.Collections;
 import java.io.*;
 
@@ -111,6 +114,16 @@ public class IO { // 系统IO，属于工具类，故类内均为静态方法和
 
     public static void printSep(String letter) { // 输出分隔符
         println(String.join("", Collections.nCopies(SEP_LENGTH, letter)));
+    }
+
+    public static void printArray(JSONArray array) {
+        for (int i = 0; i < array.length(); i++) {
+            JSONArray row = array.getJSONArray(i);
+            for (int j = 0; j < row.length(); j++) {
+                System.out.printf("%-15s", row.get(j).toString());
+            }
+            System.out.println();
+        }
     }
 
     public static void print(String str) { // 输出字符串
