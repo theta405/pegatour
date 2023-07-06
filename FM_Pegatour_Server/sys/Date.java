@@ -12,8 +12,14 @@ public class Date {
         this.date = LocalDate.parse(date, formatter);
     }
 
-    public void getLocalDate() {
-        this.date = LocalDate.now();
+    public void getFMDate() throws Exception {
+        Database db = new Database();
+        this.date = LocalDate.parse(db.getTime(), formatter);
+    }
+
+    public void setFMDate() throws Exception {
+        Database db = new Database();
+        db.modifyTime(toString());
     }
 
     // 比较这个Date对象和另一个Date对象的日期

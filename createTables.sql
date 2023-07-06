@@ -15,3 +15,10 @@ CREATE TABLE routes (
     destination VARCHAR(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     date CHAR(10) NOT NULL
 );
+
+CREATE TABLE fmdate (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date CHAR(10) NOT NULL
+);
+
+INSERT INTO fmdate (date) VALUES ('1000-01-01');

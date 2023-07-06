@@ -29,8 +29,6 @@ public class LoadServer {
             .addCommand(new ExportSummary())
             .addCommand(new AdvanceDays());
         
-        date.getLocalDate();
-        
         Request.getInstance().handleRequests();
     }
 }

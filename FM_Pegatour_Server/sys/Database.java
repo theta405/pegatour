@@ -40,6 +40,19 @@ public class Database {
         lock.unlock();
     }
 
+    public boolean hasMember(String id) throws Exception {
+        lock.lock();
+
+        String sql = "SELECT id FROM members WHERE id = ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, Integer.parseInt(id));
+        ResultSet rs = pstmt.executeQuery();
+
+        lock.unlock();
+
+        return rs.next();
+    }
+
     public JSONObject addMembers(JSONObject input) {
         return new JSONObject();
 
@@ -55,7 +68,7 @@ public class Database {
 
     }
 
-    public JSONObject removeMembers(JSONObject input) {
+    public JSONObject removeMembers(String id) throws Exception {
         return new JSONObject();
 
     }
@@ -85,13 +98,30 @@ public class Database {
 
     }
 
-    public JSONObject getTime(JSONObject input) {
-        return new JSONObject();
+    public String getTime() throws Exception {
+        lock.lock();
+        
+        Statement stmt = conn.createStatement();
+        String sql = "SELECT date FROM fmdate";
+        ResultSet rs = stmt.executeQuery(sql);
 
+        lock.unlock();
+        
+        if (rs.next()) {
+            return rs.getString("date");
+        } else {
+            throw new Exception("时间获取失败");
+        }
     }
 
-    public JSONObject modifyTime(JSONObject input) {
-        return new JSONObject();
+    public void modifyTime(String date) throws Exception {
+        lock.lock();
 
+        String sql = "UPDATE fmdate SET date = ? WHERE id = 1";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, date);
+        pstmt.executeUpdate();
+
+        lock.unlock();
     }
 }

@@ -284,9 +284,17 @@ class AdvanceDays extends Command {
     }
 
     public void exec() {
-
+        JSONObject data = new JSONObject();
+        data.put("days", IO.getInt("快进多少天", 0, 1000));
+        JSONObject response = new Request().send(identifier(), data, false);
+        if (response.getInt("status") == 0) {
+            IO.println("快进成功");
+        } else {
+            IO.println(response.getString("message"));
+        }
     }
 }
+
 class Exit extends Command {
     public String toString() {
         return "退出";

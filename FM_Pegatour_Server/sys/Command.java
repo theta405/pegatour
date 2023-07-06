@@ -36,8 +36,15 @@ class Time extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-        response.put("status", 0);
-        response.put("message", LoadServer.date.toString());
+        try {
+            LoadServer.date.getFMDate();
+            response.put("status", 0);
+            response.put("message", LoadServer.date.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", 1);
+            response.put("message", "时间获取失败");
+        }
     }
 }
 
@@ -51,7 +58,7 @@ class Register extends Command {
         try {
             db.addMember(data.getJSONArray("array"));
             response.put("status", 0);
-            response.put("message", "操作成功");
+            response.put("message", "注册成功");
         } catch (Exception e) {
             response.put("status", 1);
             response.put("message", "数据库操作失败");
@@ -186,6 +193,14 @@ class AdvanceDays extends Command {
     }
 
     public void exec(JSONObject data, JSONObject response) {
-
+        try {
+            LoadServer.date.addDays(data.getInt("days"));
+            LoadServer.date.setFMDate();
+            response.put("status", 0);
+            response.put("message", "快进成功");
+        } catch (Exception e) {
+            response.put("status", 1);
+            response.put("message", "数据库操作失败");
+        }
     }
 }
