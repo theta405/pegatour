@@ -95,7 +95,7 @@ class Deactivate extends Command {
 
     public void exec() {
         JSONObject data = new JSONObject();
-        data.put("id", IO.getStr("会员ID", 10));
+        data.put("id", IO.getStr("会员ID", null));
         JSONObject response = new Request().send(identifier(), data, false);
         if (response.getInt("status") == 0) {
             IO.println(response.getString("message"));
@@ -136,7 +136,7 @@ class Modify extends Command {
 
     public void exec() {
         JSONObject data = new JSONObject();
-        data.put("id", IO.getStr("会员ID", 10));
+        data.put("id", IO.getStr("会员ID", null));
         data.put("pass", IO.getStrMatch("输入新密码", "[0-9]{4,20}"));
         JSONObject response = new Request().send(identifier(), data, false);
         if (response.getInt("status") == 0) {
@@ -158,7 +158,7 @@ class Deposit extends Command {
 
     public void exec() {
         JSONObject data = new JSONObject();
-        data.put("id", IO.getStr("会员ID", 10));
+        data.put("id", IO.getStr("会员ID", null));
         data.put("money", IO.getInt("充值数额", 1, 10000));
         JSONObject response = new Request().send(identifier(), data, false);
         if (response.getInt("status") == 0) {
@@ -225,8 +225,8 @@ class BookRoute extends Command {
 
     public void exec() {
         JSONObject data = new JSONObject();
-        data.put("memberID", IO.getStr("会员ID", 10));
-        data.put("routeID", IO.getStr("线路ID", 10));
+        data.put("memberID", IO.getStr("会员ID", null));
+        data.put("routeID", IO.getStr("线路ID", null));
         JSONObject response = new Request().send(identifier(), data, false);
         if (response.getInt("status") == 0) {
             IO.println(response.getString("message"));
